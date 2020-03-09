@@ -1,0 +1,68 @@
+.container {
+    border-radius: 0.5em;
+    box-shadow: 0 0 1em 0 rgba(51, 51, 51, 0.25);
+    display: block;
+    max-width: 480px;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: 98%;
+}
+
+.container:before {
+    background: url('../../../assets/photo/bg-1.jpg') center no-repeat;
+    background-size: cover;
+    content: '';
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100vw;
+}
+
+.container:after {
+    background: rgba(255, 255, 255, 0.6);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+login-form {
+    max-width: 300px;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0 0 0.5em 0;
+    text-align: center;
+    font-family: 'hakuyocaoshu7000', cursive;
+}

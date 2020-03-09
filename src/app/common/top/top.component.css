@@ -1,0 +1,18 @@
+.top-menu {
+    height: 64px;
+    line-height: 64px;
+}
+
+.top-main {
+    max-width: 935px;
+    margin: 0 auto;
+}
+
+.right-button {
+    float: right;
+}
+
+.left-menu{
+    display: flex;
+    float: left;
+}

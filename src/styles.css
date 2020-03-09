@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~ng-zorro-antd/src/ng-zorro-antd.css";
+@import './assets/font/font.css';
+
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}

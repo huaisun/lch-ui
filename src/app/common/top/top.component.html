@@ -1,0 +1,20 @@
+<div class="top-main">
+    <div class="left-menu">
+        <button nz-button nzType="link" style="height: 64px; margin-right: 30px;">
+            <img src="../../../assets/photo/lch.png" />
+        </button>
+
+        <ul nz-menu nzMode="horizontal" class="top-menu">
+            <li nz-menu-item *ngFor="let item of menus" (click)="menuClick(item.key)" [nzSelected]="item.select">
+                <i nz-icon [nzType]="item.icon" nzTheme="outline"></i>
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <div class="right-button">
+        <nz-avatar nzIcon="user" nzSize="large" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        <button nz-button nzSize="large" nzType="link" style="color: grey; margin-left: 20px;">
+            <i nz-icon nzType="logout" nzTheme="outline"></i>
+        </button>
+    </div>
+</div>
