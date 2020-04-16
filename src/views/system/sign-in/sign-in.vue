@@ -102,6 +102,8 @@ export default {
   transition: 0.5s;
   margin-top: 40px;
   letter-spacing: 4px;
+  text-align: center;
+  min-width: 125px;
 }
 
 .login-box a:hover {
