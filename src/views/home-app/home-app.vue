@@ -1,22 +1,27 @@
 <template>
   <v-app>
     <v-content>
-      <v-row>
-        <v-col cols="4">
-          <HomeSearch></HomeSearch>
-        </v-col>
-        <v-col cols="8"></v-col>
-      </v-row>
+      <div class="app-content">
+        <home-search></home-search>
+        <link-form></link-form>
+      </div>
     </v-content>
   </v-app>
 </template>
 <script>
 import HomeSearch from "./search/home-search.vue";
-
+import LinkForm from "./link-form/link-form.vue";
 export default {
   name: "home-app",
   components: {
-    HomeSearch
+    "home-search": HomeSearch,
+    "link-form": LinkForm
   }
 };
 </script>
+
+<style scoped>
+.app-content {
+  padding: 41px 100px;
+}
+</style>
