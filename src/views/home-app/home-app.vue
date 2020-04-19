@@ -9,13 +9,14 @@
   </v-app>
 </template>
 <script>
-import HomeSearch from "./search/home-search.vue";
-import LinkForm from "./link-form/link-form.vue";
+import homeSearchVue from "./search/home-search.vue";
+import linkFormVue from "./link-form/link-form.vue";
+
 export default {
   name: "home-app",
   components: {
-    "home-search": HomeSearch,
-    "link-form": LinkForm
+    "home-search": homeSearchVue,
+    "link-form": linkFormVue
   }
 };
 </script>

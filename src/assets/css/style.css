@@ -17,3 +17,7 @@ body {
 .lch-center {
   text-align: center;
 }
+
+.iframe-dialog {
+  height: 75%;
+}
