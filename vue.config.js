@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   devServer: {
     port: 3000
@@ -22,5 +24,14 @@ module.exports = {
       // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
       title: "链接控",
     },
+  },
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "windows.jQuery": "jquery"
+      })
+    ]
   }
 };
