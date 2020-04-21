@@ -1,5 +1,5 @@
 <template>
-  <v-app>sign-up</v-app>
+  <div class="login-box"></div>
 </template>
 <script>
 export default {

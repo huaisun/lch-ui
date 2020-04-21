@@ -1,24 +1,41 @@
 <template>
-  <div class="login-box">
-    <h2>链接控-LCH</h2>
-    <form>
-      <div class="user-box">
-        <input type="text" name="" required="" />
-        <label>Username</label>
-      </div>
-      <div class="user-box">
-        <input type="password" name="" required="" />
-        <label>Password</label>
-      </div>
-      <a href="#">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        登录
-      </a>
-    </form>
-  </div>
+  <v-app class="sign-up">
+    <div class="login-box">
+      <h2>链接控-LCH</h2>
+      <form class="login-form">
+        <v-text-field dark color="#03e9f4" label="用户名/邮箱"></v-text-field>
+        <v-text-field dark color="#03e9f4" label="密码"></v-text-field>
+        <v-row>
+          <v-col cols="6">
+            <a href="#">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              登 录
+            </a>
+          </v-col>
+          <v-col cols="6" style="text-align: center;">
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  dark
+                  icon
+                  large
+                  color="white"
+                  style="margin-top: 30px"
+                  v-on="on"
+                >
+                  <v-icon dark>add</v-icon>
+                </v-btn>
+              </template>
+              <span>加入我们！</span>
+            </v-tooltip>
+          </v-col>
+        </v-row>
+      </form>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -48,6 +65,11 @@ export default {
   }
 }
 
+.sign-up {
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55) !important;
+}
+
 .login-box h2 {
   margin: 0 0 30px;
   padding: 0;
@@ -57,37 +79,6 @@ export default {
 
 .login-box .user-box {
   position: relative;
-}
-
-.login-box .user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-
-.login-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: 0.5s;
-}
-
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
-  top: -20px;
-  left: 0;
-  color: #03e9f4;
-  font-size: 12px;
 }
 
 .login-box form a {
@@ -100,7 +91,7 @@ export default {
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
+  margin-top: 30px;
   letter-spacing: 4px;
   text-align: center;
   min-width: 125px;
