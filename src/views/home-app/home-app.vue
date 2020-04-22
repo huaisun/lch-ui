@@ -25,4 +25,10 @@ export default {
 .app-content {
   padding: 41px 100px;
 }
+
+@media screen and (max-width: 960px) {
+  .app-content {
+    padding: 20px 20px 0;
+  }
+}
 </style>
