@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 旋转多功能按钮 -->
-    <nav class="menu hidden-sm-and-down">
+    <nav class="menu">
       <input :checked="checked" class="menu-toggler" type="checkbox" />
       <label for="menu-toggler"></label>
       <ul>
@@ -80,6 +80,7 @@ export default {
     checked: false
   }),
   mounted() {
+    /** 鼠标事件 */
     $(document).ready(function() {
       // Function to disable inbuilt context menu
       $(document).on("contextmenu", function(e) {
@@ -117,5 +118,4 @@ export default {
   }
 };
 </script>
-<style scoped src="./lch-tool.css">
-</style>
+<style scoped src="./lch-tool.css"></style>
