@@ -1,11 +1,9 @@
 <template>
   <div class="link-list">
+    <div class="hidden-sm-and-up div-align-right">
+    </div>
+    <v-divider class="hidden-sm-and-up"></v-divider>
     <v-list dense rounded>
-      <v-subheader class="hidden-sm-and-up">
-        <v-btn color="primary" icon @click="backList()">
-          <v-icon>undo</v-icon>
-        </v-btn>
-      </v-subheader>
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon>
           <v-icon>rss_feed</v-icon>

@@ -24,7 +24,7 @@
     <v-row class="form-row">
       <v-col cols="12" md="6" sm="12">
         <div class="lch-row">
-          <div class="out-category" :style="showForm == 3 ? 'width: 80px': ''">
+          <div class="out-category" :class="showForm == 3 ? 'out-category-and-small': ''">
             <!-- 分类栏 -->
             <div class="search-category hidden-sm-and-down">
               <v-text-field label="搜索" dense append-icon="search" hide-details="false"></v-text-field>
@@ -124,6 +124,10 @@ export default {
 
   .out-category {
     width: 100%;
+  }
+
+  .out-category-and-small {
+    width: 80px;
   }
 
   .transition-width-large {
