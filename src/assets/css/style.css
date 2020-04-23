@@ -14,3 +14,7 @@ html {
 .iframe-dialog {
   height: 75%;
 }
+
+.div-align-right {
+  text-align: right;
+}

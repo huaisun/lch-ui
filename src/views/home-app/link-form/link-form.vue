@@ -23,44 +23,31 @@
     </v-list>
     <v-row class="form-row">
       <v-col cols="12" md="6" sm="12">
-        <div class="lch-row left-form">
-          <div
-            class="list-form"
-            :class="showForm ? 'transition-width-large': 'transition-width-small'"
-          >
-            <v-list dense rounded>
-              <v-list-item v-for="item in items" :key="item.title" link @click="listClick()">
-                <v-list-item-icon>
-                  <v-icon :color="item.color">local_library</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+        <div class="lch-row">
+          <div class="out-category" :style="showForm == 3 ? 'width: 80px': ''">
+            <!-- 分类栏 -->
+            <div class="search-category hidden-sm-and-down">
+              <v-text-field label="搜索" dense append-icon="search" hide-details="false"></v-text-field>
+            </div>
+            <div style="display: flex">
+              <link-total
+                class="link-total-form"
+                :class="showForm == 1? 'transition-width-large': 'transition-width-small-and-total'"
+                :icon-show="showForm == 1"
+                @totalClick="totalClick"
+              ></link-total>
+              <link-category
+                class="link-category-form"
+                :class="showForm == 2? 'transition-width-large': 'transition-width-small'"
+                :icon-show="showForm == 2"
+                @categoryClick="categoryClick"
+              ></link-category>
+            </div>
           </div>
-          <div
-            class="link-form"
-            :class="!showForm ? 'transition-width-large': 'transition-width-small'"
-          >
-            <v-list dense rounded>
-              <v-subheader class="hidden-sm-and-up">
-                <v-btn color="primary" icon @click="backList()">
-                  <v-icon>undo</v-icon>
-                </v-btn>
-              </v-subheader>
-              <v-list-item v-for="item in items" :key="item.title" link>
-                <v-list-item-icon>
-                  <v-icon>rss_feed</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </div>
+          <link-list
+            class="link-list-form"
+            :class="showForm == 3? 'transition-width-large-list': 'transition-width-small'"
+          ></link-list>
         </div>
       </v-col>
       <v-col cols="12" md="6" sm="12">
@@ -75,13 +62,19 @@
 import linkLoveVue from "../link-love/link-love.vue";
 import linkHistoryVue from "../link-history/link-history.vue";
 import lchToolVue from "../tool/lch-tool.vue";
+import linkTotalVue from "./link-total.vue";
+import linkCategoryVue from "./link-category.vue";
+import linkListVue from "./link-list.vue";
 
 export default {
   name: "link-form",
   components: {
     "link-love": linkLoveVue,
     "link-history": linkHistoryVue,
-    "lch-tool": lchToolVue
+    "lch-tool": lchToolVue,
+    "link-total": linkTotalVue,
+    "link-category": linkCategoryVue,
+    "link-list": linkListVue
   },
   data: () => ({
     user: {
@@ -93,56 +86,62 @@ export default {
       { title: "About", icon: "question_answer", color: "blue" }
     ],
 
-    showForm: true
+    showForm: 1
   }),
 
   methods: {
-    listClick() {
-      this.showForm = false;
+    totalClick(flag) {
+      if (flag) this.showForm = 2;
+      else this.showForm = 1;
     },
-    backList() {
-      this.showForm = true;
+    categoryClick(flag) {
+      if (flag) this.showForm = 3;
+      else this.showForm = 2;
     }
   }
 };
 </script>
 <style scoped>
-.list-form {
+.out-category {
   border: 2px solid #e8e8e8;
-  width: 200px;
 }
-.link-form {
-  border: 2px solid #e8e8e8;
-  border-left: 0;
-  width: calc(100% - 200px);
+
+.search-category {
+  padding: 10px 20px;
+  border-bottom: 2px solid #e8e8e8;
 }
 
 @media screen and (max-width: 960px) {
-  .list-form {
+  .link-total-form,
+  .link-category-form,
+  .link-list-form,
+  .out-category {
     transition: width 1s;
     -moz-transition: width 1s; /* Firefox 4 */
     -webkit-transition: width 1s; /* Safari 和 Chrome */
     -o-transition: width 1s; /* Opera */
   }
 
-  .link-form {
-    transition: 1s;
-    -moz-transition: width 1s; /* Firefox 4 */
-    -webkit-transition: width 1s; /* Safari 和 Chrome */
-    -o-transition: width 1s; /* Opera */
+  .out-category {
+    width: 100%;
   }
 
   .transition-width-large {
     z-index: 3;
-    width: 80%;
+    width: calc(100% - 40px);
   }
 
   .transition-width-small {
-    width: 20%;
+    width: 40px;
+    overflow: hidden;
   }
 
-  .left-form {
-    min-height: 520px;
+  .transition-width-small-and-total {
+    width: 40px;
+  }
+
+  .transition-width-large-list {
+    width: calc(100% - 80px);
   }
 }
 </style>
