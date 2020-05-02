@@ -6,22 +6,24 @@
       <label for="menu-toggler"></label>
       <ul>
         <li class="menu-item">
-          <a class="fa fa-facebook" href="#"></a>
+          <a class="fa fa-facebook" href="#">a</a>
         </li>
         <li class="menu-item">
-          <a class="fa fa-google" href="#"></a>
+          <a class="fa fa-google" href="#">b</a>
         </li>
         <li class="menu-item">
-          <a class="fa fa-instagram" href="#"></a>
+          <a class="fa fa-instagram" href="#">c</a>
         </li>
         <li class="menu-item">
-          <a class="fa fa-codepen" href="#"></a>
+          <a class="fa fa-codepen" href="#">d</a>
         </li>
         <li class="menu-item">
-          <a class="fa fa-linkedin" href="#"></a>
+          <a class="fa fa-linkedin" @click="exit()">
+            <v-icon color="rgba(33, 150, 243, 0.7)">exit_to_app</v-icon>
+          </a>
         </li>
         <li class="menu-item">
-          <a class="fa fa-github" href="#"></a>
+          <a class="fa fa-github" href="#">f</a>
         </li>
       </ul>
     </nav>
@@ -115,6 +117,12 @@ export default {
         }
       });
     });
+  },
+  methods: {
+    exit() {
+      localStorage.removeItem("LCH__UUSER");
+      this.$router.push({ name: "login" });
+    }
   }
 };
 </script>

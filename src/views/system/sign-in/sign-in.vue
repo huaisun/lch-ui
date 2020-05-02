@@ -3,11 +3,24 @@
     <div class="login-box">
       <h2>链接控-LCH</h2>
       <form class="login-form">
-        <v-text-field dark color="#03e9f4" label="用户名/邮箱"></v-text-field>
-        <v-text-field dark color="#03e9f4" label="密码"></v-text-field>
+        <v-text-field
+          dark
+          v-model="name"
+          color="#03e9f4"
+          label="用户名/邮箱"
+        ></v-text-field>
+        <v-text-field
+          dark
+          type="password"
+          v-model="password"
+          color="#03e9f4"
+          label="密码"
+          @keyup.enter.native="submit()"
+        ></v-text-field>
+        <div class="forgot-class" @click="forgotPwd()">忘记密码？</div>
         <v-row>
           <v-col cols="6">
-            <a href="#">
+            <a @click="submit()">
               <span></span>
               <span></span>
               <span></span>
@@ -25,6 +38,7 @@
                   color="white"
                   style="margin-top: 30px"
                   v-on="on"
+                  @click="addUser()"
                 >
                   <v-icon dark>add</v-icon>
                 </v-btn>
@@ -39,8 +53,76 @@
 </template>
 
 <script>
+import { login } from "../system.service";
+import { mapActions } from "vuex";
+
 export default {
-  name: "sign-in"
+  name: "sign-in",
+  data: () => ({
+    // 提交表单
+    name: "",
+    password: ""
+  }),
+  created() {
+    const user = JSON.parse(localStorage.getItem("LCH__UUSER"));
+
+    if (user != null && user !== undefined) {
+      // todo 进行密码检测
+      const flag = true;
+      if (flag) {
+        this.$router.push({ path: "/" + user.domain });
+        this.updateUser({
+          domain: user.domain,
+          email: user.email
+        });
+      }
+    }
+  },
+  methods: {
+    ...mapActions(["updateUser"]),
+    /**
+     * 登陆操作
+     */
+    submit() {
+      if (this.name.trim() !== "") {
+        if (this.password !== "") {
+          // 封装数据
+          const form = {
+            domain: this.name,
+            email: this.name,
+            password: this.password
+          };
+
+          // 进行登陆
+          login(form).then(res => {
+            const result = res.data;
+            if (result.code === 0) {
+              this.updateUser({
+                domain: result.data.domain,
+                email: result.email
+              });
+              localStorage.setItem("LCH__UUSER", JSON.stringify(result.data));
+              this.$router.push({ path: "/" + result.data.domain });
+            }
+          });
+        }
+      }
+    },
+
+    /**
+     * 忘记密码
+     */
+    forgotPwd() {
+      console.log("忘记密码");
+    },
+
+    /**
+     * 注册
+     */
+    addUser() {
+      this.$router.push({ name: "sign-up" });
+    }
+  }
 };
 </script>
 
@@ -56,6 +138,17 @@ export default {
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+}
+
+.forgot-class {
+  color: white;
+  cursor: pointer;
+}
+
+.forgot-class:hover {
+  text-decoration: underline;
+  color: #03e9f4;
+  text-decoration-color: #03e9f4;
 }
 
 @media screen and (max-width: 400px) {

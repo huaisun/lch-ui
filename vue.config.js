@@ -1,9 +1,9 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = {
   devServer: {
-    port: 3000
-    // "proxy": 'http://127.0.0.1:3099'
+    port: 3000,
+    proxy: "http://localhost:3099"
   },
   transpileDependencies: ["vuetify"],
   //打包后的位置(如果不设置这个静态资源会报404)
@@ -22,8 +22,8 @@ module.exports = {
       filename: "index.html",
       // 当使用 title 选项时，
       // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-      title: "链接控",
-    },
+      title: "链接控"
+    }
   },
   configureWebpack: {
     plugins: [
