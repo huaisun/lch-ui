@@ -92,7 +92,6 @@ export default {
             email: this.name,
             password: this.password
           };
-
           // 进行登陆
           login(form).then(res => {
             const result = res.data;
@@ -113,7 +112,7 @@ export default {
      * 忘记密码
      */
     forgotPwd() {
-      console.log("忘记密码");
+      this.$router.push({ name: "forgot-pwd" });
     },
 
     /**

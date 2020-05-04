@@ -47,3 +47,11 @@ export const checkEmail = params => {
 export const addUser = params => {
   return Axios.post("/lch/user/addUser", params);
 };
+
+/**
+ * 忘记密码，进行密码的修改
+ * @param {email, code, password} params
+ */
+export const forgotPwd = params => {
+  return Axios.post("/lch/user/forgotPwd", params);
+}

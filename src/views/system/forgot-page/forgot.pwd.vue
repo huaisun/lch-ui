@@ -1,17 +1,7 @@
 <template>
-  <v-app class="sign-up">
+  <v-app class="forgot-pwd">
     <div class="login-box">
-      <h2>注册-LCH</h2>
       <form class="login-form">
-        <v-text-field
-          dark
-          v-model="name"
-          color="#03e9f4"
-          :error-messages="nameErrors"
-          @input="$v.name.$touch()"
-          @blur="$v.name.$touch()"
-          label="用户名"
-        ></v-text-field>
         <v-text-field
           dark
           v-model="email"
@@ -33,7 +23,7 @@
           ></v-text-field>
           <div class="send-btn">
             <v-btn dark rounded small :disabled="isSend" @click="sendCode()"
-              >发送验证码{{ isSend ? "(" + secondNumber + ")" : "" }}
+            >发送验证码{{ isSend ? "(" + secondNumber + ")" : "" }}
             </v-btn>
           </div>
         </div>
@@ -72,7 +62,7 @@
               <span></span>
               <span></span>
               <span></span>
-              提 交
+              确 认
             </a>
           </v-col>
         </v-row>
@@ -81,20 +71,14 @@
   </v-app>
 </template>
 <script>
-import {
-  sendVerification,
-  checkEmail,
-  checkDomain,
-  addUser
-} from "../system.service";
+import { sendVerification, forgotPwd } from "../system.service";
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import { email, required } from "vuelidate/lib/validators";
 
 export default {
+  name: "forgot-pwd",
   mixins: [validationMixin],
-  name: "sign-up",
   validations: {
-    name: { required, maxLength: maxLength(10) },
     email: { required, email },
     code: { required },
     password: { required }
@@ -103,20 +87,11 @@ export default {
     // 验证码的计算
     isSend: false,
     secondNumber: 0,
-    // 表单数据
-    name: "",
     email: "",
     code: "",
     password: ""
   }),
   computed: {
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength && errors.push("名称最大为10个字符!");
-      !this.$v.name.required && errors.push("必须输入名称!");
-      return errors;
-    },
     emailErrors() {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
@@ -143,28 +118,21 @@ export default {
       this.$v.email.$touch();
       // 对email 进行基础验证，满足验证时，将会返回空的数组
       if (this.emailErrors.length === 0) {
-        // 检测邮箱是否已经存在
-        checkEmail({ email: this.email }).then(res => {
-          if (res.data.code === -100) {
-            this.$snackbar.error(res.data.message);
-          } else {
-            // 发送验证码
-            sendVerification({ email: this.email }).then(res => {
-              if (res.data.code === 0) {
-                this.isSend = true;
-                this.secondNumber = 60;
-                const timeOut = setInterval(() => {
-                  if (this.secondNumber <= 0) {
-                    clearInterval(timeOut);
-                    this.isSend = false;
-                  } else {
-                    this.secondNumber--;
-                  }
-                }, 1000);
+        // 发送验证码
+        sendVerification({ email: this.email }).then(res => {
+          if (res.data.code === 0) {
+            this.isSend = true;
+            this.secondNumber = 60;
+            const timeOut = setInterval(() => {
+              if (this.secondNumber <= 0) {
+                clearInterval(timeOut);
+                this.isSend = false;
               } else {
-                this.$snackbar.error(res.data.message);
+                this.secondNumber--;
               }
-            });
+            }, 1000);
+          } else {
+            this.$snackbar.error(res.data.message);
           }
         });
       }
@@ -173,43 +141,40 @@ export default {
     returnLogin() {
       this.$router.push({ name: "login" });
     },
-    /** 注册用户信息 */
+    /** 提交 */
     submit() {
       this.$v.$touch();
       if (
-        this.nameErrors.length === 0 &&
         this.emailErrors.length === 0 &&
-        this.codeErrors.length === 0 &&
         this.passwordErrors.length === 0
       ) {
-        checkDomain({ domain: this.name }).then(res => {
-          if (res.data.code === -400) {
-            this.$snackbar.error(res.data.message);
+        forgotPwd({
+          email: this.email,
+          code: this.code,
+          password: this.password
+        }).then(res => {
+          if (res.data.code === 0) {
+            this.$snackbar.success("修改成功!");
+            this.$router.push({ name: "login" });
           } else {
-            addUser({
-              domain: this.name,
-              email: this.email,
-              code: this.code,
-              password: this.password
-            }).then(res => {
-              if (res.data.code === 0) {
-                this.$snackbar.success("注册成功，请登录!");
-                this.$router.push({ name: "login" });
-              }
-            });
+            this.$snackbar.error(res.data.message);
           }
-        });
+        })
       }
     }
   }
-};
+}
 </script>
-
 <style scoped>
 .send-btn {
   margin: 19px 0 19px 20px;
   width: 120px;
   text-align: right;
+}
+
+.forgot-pwd {
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55) !important;
 }
 .login-box {
   position: absolute;
@@ -231,16 +196,15 @@ export default {
   }
 }
 
-.sign-up {
-  font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55) !important;
-}
-
 .login-box h2 {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
   text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
 }
 
 .login-box form a {
@@ -264,7 +228,7 @@ export default {
   color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-    0 0 100px #03e9f4;
+  0 0 100px #03e9f4;
 }
 
 .login-box a span {
