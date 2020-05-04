@@ -66,7 +66,7 @@ export default {
   created() {
     const user = JSON.parse(localStorage.getItem("LCH__UUSER"));
 
-    if (user != null && user !== undefined) {
+    if (user != null) {
       // todo 进行密码检测
       const flag = true;
       if (flag) {

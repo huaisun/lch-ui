@@ -7,8 +7,11 @@ import vuetify from "./plugins/vuetify";
 // css
 import "@/assets/css/style.css";
 
-Vue.config.productionTip = false;
+// component
+import Snackbar from "@/components/snackbar/index";
 
+Vue.config.productionTip = false;
+Vue.prototype.$snackbar = Snackbar;
 new Vue({
   router,
   store,
