@@ -10,6 +10,11 @@ export default new Vuex.Store({
       email: ""
     }
   },
+  getters: {
+    getUser() {
+      return this.state.user;
+    }
+  },
   mutations: {
     SET_UUSER(state, v) {
       state.user = v;

@@ -54,7 +54,6 @@
 
 <script>
 import { login } from "../system.service";
-import { mapActions } from "vuex";
 
 export default {
   name: "sign-in",
@@ -79,7 +78,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateUser"]),
     /**
      * 登陆操作
      */
@@ -96,12 +94,10 @@ export default {
           login(form).then(res => {
             const result = res.data;
             if (result.code === 0) {
-              this.updateUser({
-                domain: result.data.domain,
-                email: result.email
-              });
               localStorage.setItem("LCH__UUSER", JSON.stringify(result.data));
               this.$router.push({ path: "/" + result.data.domain });
+            } else {
+              this.$snackbar.error(res.data.message);
             }
           });
         }

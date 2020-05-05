@@ -65,6 +65,7 @@ import lchToolVue from "../tool/lch-tool.vue";
 import linkTotalVue from "./link-total.vue";
 import linkCategoryVue from "./link-category.vue";
 import linkListVue from "./link-list.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "link-form",
@@ -88,8 +89,17 @@ export default {
 
     showForm: 1
   }),
+  created() {
+    const jsonUser = localStorage.getItem("LCH__UUSER");
+    if (jsonUser !== null && jsonUser !== undefined) {
+      const parseUser = JSON.parse(jsonUser);
+      this.user = parseUser;
+      this.updateUser(parseUser);
+    }
+  },
 
   methods: {
+    ...mapActions(["getUser", "updateUser"]),
     totalClick(flag) {
       if (flag) this.showForm = 2;
       else this.showForm = 1;
