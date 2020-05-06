@@ -9,16 +9,18 @@
     </div>
     <v-divider class="hidden-sm-and-up"></v-divider>
     <v-list dense>
-      <v-list-item
-        v-for="item in categories"
-        :key="item.id"
-        link
-        @click="$emit('categoryClick', true)"
-      >
-        <v-list-item-content>
-          <v-list-item-title>{{ item.categoryName }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      <div style="max-height: 550px; overflow: auto">
+        <v-list-item
+          v-for="item in categories"
+          :key="item.id"
+          link
+          @click="$emit('categoryClick', true)"
+        >
+          <v-list-item-content>
+            <v-list-item-title>{{ item.categoryName }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </div>
     </v-list>
   </div>
 </template>
