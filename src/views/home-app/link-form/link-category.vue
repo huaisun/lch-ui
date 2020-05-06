@@ -2,19 +2,21 @@
   <div class="link-category">
     <div class="hidden-sm-and-up div-align-right">
       <v-btn icon @click="$emit('categoryClick', iconShow)">
-        <v-icon>{{iconShow ? 'keyboard_arrow_left': 'keyboard_arrow_right'}}</v-icon>
+        <v-icon>{{
+          iconShow ? "keyboard_arrow_left" : "keyboard_arrow_right"
+        }}</v-icon>
       </v-btn>
     </div>
     <v-divider class="hidden-sm-and-up"></v-divider>
     <v-list dense>
       <v-list-item
-        v-for="item in items"
-        :key="item.title"
+        v-for="item in categories"
+        :key="item.id"
         link
         @click="$emit('categoryClick', true)"
       >
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{ item.categoryName }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -24,7 +26,7 @@
 <script>
 export default {
   name: "link-category",
-  props: ["iconShow"],
+  props: ["iconShow", "categories"],
   data: () => ({
     items: [
       { title: "Home", icon: "dashboard", color: "primary" },

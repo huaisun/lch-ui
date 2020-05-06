@@ -9,14 +9,10 @@
         </v-list-item-avatar>
         <v-list-item-content style="height: 64px">
           <v-list-item-title style="font-size: 18px">
-            {{
-            user != null ? user.domain : ""
-            }}
+            {{ user != null ? user.domain : "" }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            {{
-            user != null ? user.email : ""
-            }}
+            {{ user != null ? user.email : "" }}
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -24,21 +20,39 @@
     <v-row class="form-row">
       <v-col cols="12" md="6" sm="12">
         <div class="lch-row">
-          <div class="out-category" :class="showForm == 3 ? 'out-category-and-small': ''">
+          <div
+            class="out-category"
+            :class="showForm == 3 ? 'out-category-and-small' : ''"
+          >
             <!-- 分类栏 -->
             <div class="search-category hidden-sm-and-down">
-              <v-text-field label="搜索" dense append-icon="search" hide-details="false"></v-text-field>
+              <v-text-field
+                label="搜索"
+                dense
+                append-icon="search"
+                hide-details="false"
+              ></v-text-field>
             </div>
             <div style="display: flex">
               <link-total
                 class="link-total-form"
-                :class="showForm == 1? 'transition-width-large': 'transition-width-small-and-total'"
+                :catalogues="catalogues"
+                :class="
+                  showForm == 1
+                    ? 'transition-width-large'
+                    : 'transition-width-small-and-total'
+                "
                 :icon-show="showForm == 1"
                 @totalClick="totalClick"
               ></link-total>
               <link-category
                 class="link-category-form"
-                :class="showForm == 2? 'transition-width-large': 'transition-width-small'"
+                :categories="categories"
+                :class="
+                  showForm == 2
+                    ? 'transition-width-large'
+                    : 'transition-width-small'
+                "
                 :icon-show="showForm == 2"
                 @categoryClick="categoryClick"
               ></link-category>
@@ -46,7 +60,11 @@
           </div>
           <link-list
             class="link-list-form"
-            :class="showForm == 3? 'transition-width-large-list': 'transition-width-small'"
+            :class="
+              showForm == 3
+                ? 'transition-width-large-list'
+                : 'transition-width-small'
+            "
           ></link-list>
         </div>
       </v-col>
@@ -66,6 +84,7 @@ import linkTotalVue from "./link-total.vue";
 import linkCategoryVue from "./link-category.vue";
 import linkListVue from "./link-list.vue";
 import { mapActions } from "vuex";
+import { getCatalogue } from "./link-form.service";
 
 export default {
   name: "link-form",
@@ -79,14 +98,13 @@ export default {
   },
   data: () => ({
     user: {
-      domain: "huaisun",
-      email: "420007900@qq.com"
+      domain: "",
+      email: ""
     },
-    items: [
-      { title: "Home", icon: "dashboard", color: "primary" },
-      { title: "About", icon: "question_answer", color: "blue" }
-    ],
-
+    // 目录
+    catalogues: [],
+    // 分类
+    categories: [],
     showForm: 1
   }),
   created() {
@@ -95,11 +113,18 @@ export default {
       const parseUser = JSON.parse(jsonUser);
       this.user = parseUser;
       this.updateUser(parseUser);
+      getCatalogue({ domain: parseUser.domain }).then(res => {
+        console.log(res);
+        this.catalogues = res.data.data;
+        if (this.catalogues.length > 0) {
+          this.categories = this.catalogues[0].categories;
+        }
+      });
     }
   },
 
   methods: {
-    ...mapActions(["getUser", "updateUser"]),
+    ...mapActions(["updateUser"]),
     totalClick(flag) {
       if (flag) this.showForm = 2;
       else this.showForm = 1;

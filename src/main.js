@@ -6,12 +6,15 @@ import vuetify from "./plugins/vuetify";
 
 // css
 import "@/assets/css/style.css";
+// js
+import CommonJs from "@/assets/common/common.js";
 
 // component
 import Snackbar from "@/components/snackbar/index";
 
 Vue.config.productionTip = false;
 Vue.prototype.$snackbar = Snackbar;
+Vue.prototype.$common = CommonJs;
 new Vue({
   router,
   store,

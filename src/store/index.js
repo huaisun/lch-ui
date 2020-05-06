@@ -11,8 +11,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getUser() {
-      return this.state.user;
+    getUser(state) {
+      return state.user;
     }
   },
   mutations: {
