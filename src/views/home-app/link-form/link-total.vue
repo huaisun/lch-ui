@@ -23,7 +23,7 @@
         </div>
         <v-list-item-content class="add-input-list content-list">
           <div style="display: flex">
-            <input v-model="name" name="name" style="width: 80%" />
+            <input v-model="name" name="name" style="width: 80%" @keyup.enter.native="submitCatalogue()" />
             <v-btn icon x-small color="error" @click="submitCatalogue()">
               <v-icon>done</v-icon>
             </v-btn>
@@ -35,7 +35,7 @@
           v-for="item in catalogues"
           :key="item.catalogueId"
           link
-          @click="$emit('totalClick', true)"
+          @click="$emit('catalogueClick', true, item.categories)"
         >
           <div class="icon-div">
             <v-icon class="icon-total" :color="item.color">label</v-icon>
@@ -74,10 +74,12 @@ export default {
       if (this.name !== "") {
         addCatalogue({
           name: this.name,
+          color: this.addColor,
           userId: this.getUser().id
         }).then(res => {
           if (res.data.code === 0) {
             this.$snackbar.success("创建成功");
+            this.$emit("refreshCatalogue");
           } else {
             this.$snackbar.error(res.data.message);
           }

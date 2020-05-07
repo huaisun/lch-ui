@@ -43,7 +43,8 @@
                     : 'transition-width-small-and-total'
                 "
                 :icon-show="showForm == 1"
-                @totalClick="totalClick"
+                @catalogueClick="catalogueClick"
+                @refreshCatalogue="refreshCatalogue"
               ></link-total>
               <link-category
                 class="link-category-form"
@@ -83,7 +84,7 @@ import lchToolVue from "../tool/lch-tool.vue";
 import linkTotalVue from "./link-total.vue";
 import linkCategoryVue from "./link-category.vue";
 import linkListVue from "./link-list.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { getCatalogue } from "./link-form.service";
 
 export default {
@@ -113,25 +114,39 @@ export default {
       const parseUser = JSON.parse(jsonUser);
       this.user = parseUser;
       this.updateUser(parseUser);
-      getCatalogue({ domain: parseUser.domain }).then(res => {
-        console.log(res);
-        this.catalogues = res.data.data;
-        if (this.catalogues.length > 0) {
-          this.categories = this.catalogues[0].categories;
-        }
-      });
+      this.refreshCatalogue();
     }
   },
 
   methods: {
     ...mapActions(["updateUser"]),
-    totalClick(flag) {
+    ...mapGetters(["getUser"]),
+    /** 响应点击事件 */
+    catalogueClick(flag, categories) {
+      this.totalClick(flag);
+      if (categories === undefined || categories == null) {
+        this.categories = null;
+      } else {
+        this.categories = categories;
+      }
+    },
+    totalClick(flag, categories) {
       if (flag) this.showForm = 2;
       else this.showForm = 1;
     },
+    /** 分类点击事件 */
     categoryClick(flag) {
       if (flag) this.showForm = 3;
       else this.showForm = 2;
+    },
+    /** 刷新目录 */
+    refreshCatalogue() {
+      getCatalogue({ domain: this.getUser().domain }).then(res => {
+        this.catalogues = res.data.data;
+        if (this.catalogues.length > 0) {
+          this.categories = this.catalogues[0].categories;
+        }
+      });
     }
   }
 };

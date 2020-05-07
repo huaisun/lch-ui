@@ -7,3 +7,7 @@ export const addCatalogue = params => {
 export const getCatalogue = params => {
   return Axios.get("/lch/catalogue/getCatalogue", { params });
 };
+
+export const addCategory = params => {
+  return Axios.post("/lch/category/addCategory", { params });
+};
