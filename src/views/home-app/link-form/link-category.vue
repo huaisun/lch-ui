@@ -2,9 +2,11 @@
   <div class="link-category">
     <div class="hidden-sm-and-up div-align-right">
       <v-btn icon @click="$emit('categoryClick', iconShow)">
-        <v-icon>{{
+        <v-icon>
+          {{
           iconShow ? "keyboard_arrow_left" : "keyboard_arrow_right"
-        }}</v-icon>
+          }}
+        </v-icon>
       </v-btn>
     </div>
     <v-divider class="hidden-sm-and-up"></v-divider>
@@ -20,9 +22,9 @@
       <div style="max-height: 550px; overflow: auto">
         <v-list-item
           v-for="item in categories"
-          :key="item.id"
+          :key="item.categoryId"
           link
-          @click="$emit('categoryClick', true)"
+          @click="categoryClick(item.categoryId)"
         >
           <v-list-item-content>
             <v-list-item-title>{{ item.categoryName }}</v-list-item-title>
@@ -45,7 +47,11 @@ export default {
   }),
   methods: {
     /** 增加用户分类 */
-    addUserCategory() {}
+    addUserCategory() {},
+    /** 分类点击 */
+    categoryClick(categoryId) {
+      this.$emit("categoryClick", true, categoryId);
+    }
   }
 };
 </script>

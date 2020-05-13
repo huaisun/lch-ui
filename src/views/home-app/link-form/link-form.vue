@@ -8,30 +8,18 @@
           />
         </v-list-item-avatar>
         <v-list-item-content style="height: 64px">
-          <v-list-item-title style="font-size: 18px">
-            {{ user != null ? user.domain : "" }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ user != null ? user.email : "" }}
-          </v-list-item-subtitle>
+          <v-list-item-title style="font-size: 18px">{{ user != null ? user.domain : "" }}</v-list-item-title>
+          <v-list-item-subtitle>{{ user != null ? user.email : "" }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
     <v-row class="form-row">
       <v-col cols="12" md="6" sm="12">
         <div class="lch-row">
-          <div
-            class="out-category"
-            :class="showForm == 3 ? 'out-category-and-small' : ''"
-          >
+          <div class="out-category" :class="showForm == 3 ? 'out-category-and-small' : ''">
             <!-- 分类栏 -->
             <div class="search-category hidden-sm-and-down">
-              <v-text-field
-                label="搜索"
-                dense
-                append-icon="search"
-                hide-details="false"
-              ></v-text-field>
+              <v-text-field label="搜索" dense append-icon="search" hide-details="false"></v-text-field>
             </div>
             <div style="display: flex">
               <link-total
@@ -61,6 +49,7 @@
           </div>
           <link-list
             class="link-list-form"
+            :links="links"
             :class="
               showForm == 3
                 ? 'transition-width-large-list'
@@ -85,7 +74,7 @@ import linkTotalVue from "./link-total.vue";
 import linkCategoryVue from "./link-category.vue";
 import linkListVue from "./link-list.vue";
 import { mapActions, mapGetters } from "vuex";
-import { getCatalogue } from "./link-form.service";
+import { getCatalogue, getLinkByCategoryId } from "./link-form.service";
 
 export default {
   name: "link-form",
@@ -106,7 +95,9 @@ export default {
     catalogues: [],
     // 分类
     categories: [],
-    showForm: 1
+    showForm: 1,
+    // 链接
+    links: []
   }),
   created() {
     const jsonUser = localStorage.getItem("LCH__UUSER");
@@ -125,19 +116,23 @@ export default {
     catalogueClick(flag, categories) {
       this.totalClick(flag);
       if (categories === undefined || categories == null) {
-        this.categories = null;
+        this.categories = [];
       } else {
         this.categories = categories;
       }
+      this.refreshLinks(
+        this.categories.length > 0 ? this.categories[0].categoryId : undefined
+      );
     },
     totalClick(flag, categories) {
       if (flag) this.showForm = 2;
       else this.showForm = 1;
     },
     /** 分类点击事件 */
-    categoryClick(flag) {
+    categoryClick(flag, categoryId) {
       if (flag) this.showForm = 3;
       else this.showForm = 2;
+      this.refreshLinks(categoryId);
     },
     /** 刷新目录 */
     refreshCatalogue() {
@@ -145,8 +140,24 @@ export default {
         this.catalogues = res.data.data;
         if (this.catalogues.length > 0) {
           this.categories = this.catalogues[0].categories;
+          // 加载第三级
+          this.refreshLinks(
+            this.categories.length > 0
+              ? this.categories[0].categoryId
+              : undefined
+          );
         }
       });
+    },
+
+    refreshLinks(categoryId) {
+      if (categoryId !== undefined) {
+        getLinkByCategoryId({ categoryId }).then(res => {
+          this.links = res.data.data;
+        });
+      } else {
+        this.links = [];
+      }
     }
   }
 };
