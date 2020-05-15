@@ -8,11 +8,15 @@ export default new Vuex.Store({
     user: {
       domain: "",
       email: ""
-    }
+    },
+    colors: ["indigo", "orange", "primary", "green", "teal", "pink", "cyan"]
   },
   getters: {
     getUser(state) {
       return state.user;
+    },
+    getColor(state) {
+      return state.colors[parseInt(Math.random() * 7)];
     }
   },
   mutations: {

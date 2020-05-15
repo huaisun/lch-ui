@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "link-list",
+  name: "link-url",
   props: ["links"],
   data: () => ({}),
   methods: {

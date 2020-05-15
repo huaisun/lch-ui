@@ -23,7 +23,12 @@
         </div>
         <v-list-item-content class="add-input-list content-list">
           <div style="display: flex">
-            <input v-model="name" name="name" style="width: 80%" @keyup.enter.native="submitCatalogue()" />
+            <input
+              v-model="name"
+              name="name"
+              style="width: 80%"
+              @keyup.enter="submitCatalogue()"
+            />
             <v-btn icon x-small color="error" @click="submitCatalogue()">
               <v-icon>done</v-icon>
             </v-btn>
@@ -50,11 +55,11 @@
 </template>
 
 <script>
-import { addCatalogue } from "./link-form.service";
+import { addCatalogue } from "../link-main.service";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "link-total",
+  name: "link-catalogue",
   props: ["iconShow", "catalogues"],
   data: () => ({
     addShow: false,

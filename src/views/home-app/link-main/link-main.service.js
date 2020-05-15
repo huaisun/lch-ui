@@ -19,3 +19,8 @@ export const addCategory = params => {
 export const getLinkByCategoryId = params => {
   return Axios.get("/lch/link/getLinkByCategoryId", { params })
 }
+
+/** 获取个人的收藏链接 */
+export const getLoveLinkByDomain = params => {
+  return Axios.get("/lch/link/getLoveLinkByDomain", { params })
+}

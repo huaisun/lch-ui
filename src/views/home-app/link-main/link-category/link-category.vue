@@ -19,6 +19,21 @@
           <v-list-item-title>添加分类</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item link v-if="addShow" style="margin-left: -10px">
+        <v-list-item-content class="add-input-list content-list">
+          <div style="display: flex">
+            <input
+              v-model="name"
+              name="name"
+              style="width: 80%"
+              @keyup.enter="submitCategory()"
+            />
+            <v-btn icon x-small color="error" @click="submitCategory()">
+              <v-icon>done</v-icon>
+            </v-btn>
+          </div>
+        </v-list-item-content>
+      </v-list-item>
       <div style="max-height: 550px; overflow: auto">
         <v-list-item
           v-for="item in categories"
@@ -40,17 +55,22 @@ export default {
   name: "link-category",
   props: ["iconShow", "categories"],
   data: () => ({
-    items: [
-      { title: "Home", icon: "dashboard", color: "primary" },
-      { title: "About", icon: "question_answer", color: "blue" }
-    ]
+    addShow: false,
+    name: ""
   }),
   methods: {
     /** 增加用户分类 */
-    addUserCategory() {},
+    addUserCategory() {
+      this.addShow = true;
+    },
     /** 分类点击 */
     categoryClick(categoryId) {
       this.$emit("categoryClick", true, categoryId);
+    },
+    /** 添加分类 */
+    submitCategory() {
+      this.addShow = false;
+      console.log(this.name);
     }
   }
 };
@@ -69,5 +89,9 @@ export default {
   .link-category {
     width: 200px;
   }
+}
+
+.content-list {
+  margin-left: 10px;
 }
 </style>

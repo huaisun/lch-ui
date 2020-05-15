@@ -3,32 +3,32 @@
     <v-content>
       <div class="app-content">
         <home-search></home-search>
-        <link-form></link-form>
       </div>
+      <link-main></link-main>
     </v-content>
   </v-app>
 </template>
 <script>
 import homeSearchVue from "./search/home-search.vue";
-import linkFormVue from "./link-form/link-form.vue";
+import linkMainVue from "./link-main/link-main.vue";
 
 export default {
   name: "home-app",
   components: {
     "home-search": homeSearchVue,
-    "link-form": linkFormVue
+    "link-main": linkMainVue
   }
 };
 </script>
 
 <style scoped>
 .app-content {
-  padding: 41px 100px;
+  padding: 41px 100px 0 100px;
 }
 
 @media screen and (max-width: 960px) {
   .app-content {
-    padding: 20px 20px 0;
+    padding: 20px 0 0;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list dense nav class="py-0 avator-background">
+    <v-list dense nav class="py-0 avator-background person-div">
       <v-list-item two-line>
         <v-list-item-avatar size="48">
           <img
@@ -8,21 +8,33 @@
           />
         </v-list-item-avatar>
         <v-list-item-content style="height: 64px">
-          <v-list-item-title style="font-size: 18px">{{ user != null ? user.domain : "" }}</v-list-item-title>
-          <v-list-item-subtitle>{{ user != null ? user.email : "" }}</v-list-item-subtitle>
+          <v-list-item-title style="font-size: 18px">{{
+            user != null ? user.domain : ""
+          }}</v-list-item-title>
+          <v-list-item-subtitle>{{
+            user != null ? user.email : ""
+          }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <v-row class="form-row">
-      <v-col cols="12" md="6" sm="12">
+    <v-row class="form-row" :style="{ height: height - 187 + 'px' }">
+      <v-col cols="12" lg="6" md="12" sm="12">
         <div class="lch-row">
-          <div class="out-category" :class="showForm == 3 ? 'out-category-and-small' : ''">
+          <div
+            class="out-category"
+            :class="showForm == 3 ? 'out-category-and-small' : ''"
+          >
             <!-- 分类栏 -->
             <div class="search-category hidden-sm-and-down">
-              <v-text-field label="搜索" dense append-icon="search" hide-details="false"></v-text-field>
+              <v-text-field
+                label="搜索"
+                dense
+                append-icon="search"
+                hide-details="false"
+              ></v-text-field>
             </div>
             <div style="display: flex">
-              <link-total
+              <link-catalogue
                 class="link-total-form"
                 :catalogues="catalogues"
                 :class="
@@ -33,7 +45,7 @@
                 :icon-show="showForm == 1"
                 @catalogueClick="catalogueClick"
                 @refreshCatalogue="refreshCatalogue"
-              ></link-total>
+              ></link-catalogue>
               <link-category
                 class="link-category-form"
                 :categories="categories"
@@ -47,7 +59,7 @@
               ></link-category>
             </div>
           </div>
-          <link-list
+          <link-url
             class="link-list-form"
             :links="links"
             :class="
@@ -55,10 +67,10 @@
                 ? 'transition-width-large-list'
                 : 'transition-width-small'
             "
-          ></link-list>
+          ></link-url>
         </div>
       </v-col>
-      <v-col cols="12" md="6" sm="12">
+      <v-col cols="12" lg="6" md="12" sm="12">
         <link-love></link-love>
         <link-history></link-history>
       </v-col>
@@ -70,21 +82,21 @@
 import linkLoveVue from "../link-love/link-love.vue";
 import linkHistoryVue from "../link-history/link-history.vue";
 import lchToolVue from "../tool/lch-tool.vue";
-import linkTotalVue from "./link-total.vue";
-import linkCategoryVue from "./link-category.vue";
-import linkListVue from "./link-list.vue";
+import linkCatalogueVue from "./link-catalogue/link-catalogue.vue";
+import linkCategoryVue from "./link-category/link-category.vue";
+import linkUrlVue from "./link-url/link-url.vue";
 import { mapActions, mapGetters } from "vuex";
-import { getCatalogue, getLinkByCategoryId } from "./link-form.service";
+import { getCatalogue, getLinkByCategoryId } from "./link-main.service";
 
 export default {
-  name: "link-form",
+  name: "link-main",
   components: {
     "link-love": linkLoveVue,
     "link-history": linkHistoryVue,
     "lch-tool": lchToolVue,
-    "link-total": linkTotalVue,
+    "link-catalogue": linkCatalogueVue,
     "link-category": linkCategoryVue,
-    "link-list": linkListVue
+    "link-url": linkUrlVue
   },
   data: () => ({
     user: {
@@ -97,8 +109,16 @@ export default {
     categories: [],
     showForm: 1,
     // 链接
-    links: []
+    links: [],
+    height: document.documentElement.clientHeight
   }),
+  mounted() {
+    this.height = `${document.documentElement.clientHeight}`;
+    // 然后监听window的resize事件．在浏览器窗口变化时再设置下背景图高度．
+    window.onresize = () => {
+      this.height = `${document.documentElement.clientHeight}`;
+    };
+  },
   created() {
     const jsonUser = localStorage.getItem("LCH__UUSER");
     if (jsonUser !== null && jsonUser !== undefined) {
@@ -172,6 +192,20 @@ export default {
   border-bottom: 2px solid #e8e8e8;
 }
 
+.person-div {
+  background: #eee;
+}
+
+.form-row,
+.person-div {
+  padding: 0 100px;
+}
+
+.form-row {
+  overflow-y: auto;
+  margin: 0;
+}
+
 @media screen and (max-width: 960px) {
   .link-total-form,
   .link-category-form,
@@ -181,6 +215,11 @@ export default {
     -moz-transition: width 1s; /* Firefox 4 */
     -webkit-transition: width 1s; /* Safari 和 Chrome */
     -o-transition: width 1s; /* Opera */
+  }
+
+  .form-row,
+  .person-div {
+    padding: 0 20px 0 0;
   }
 
   .out-category {

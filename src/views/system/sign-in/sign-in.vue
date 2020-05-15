@@ -54,6 +54,7 @@
 
 <script>
 import { login } from "../system.service";
+import { mapActions } from "vuex";
 
 export default {
   name: "sign-in",
@@ -78,6 +79,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["updateUser"]),
     /**
      * 登陆操作
      */
