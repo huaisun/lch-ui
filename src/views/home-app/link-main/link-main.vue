@@ -145,6 +145,7 @@ export default {
       );
     },
     totalClick(flag, categories) {
+      console.log(flag);
       if (flag) this.showForm = 2;
       else this.showForm = 1;
     },
