@@ -12,7 +12,11 @@
         ></v-btn>
       </template>
       <v-list>
-        <v-list-item v-for="(item, index) in items" :key="index" @click="itemClick(item)">
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="itemClick(item)"
+        >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -28,10 +32,20 @@
     ></v-text-field>
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn class="search-menu hidden-sm-and-up" tile color="primary" v-on="on">搜索方式</v-btn>
+        <v-btn
+          class="search-menu hidden-sm-and-up"
+          tile
+          color="primary"
+          v-on="on"
+          >搜索方式</v-btn
+        >
       </template>
       <v-list>
-        <v-list-item v-for="(item, index) in items" :key="index" @click="searchClick(item)">
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="search(item)"
+        >
           <v-list-item-title>{{ item.translate }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -56,19 +70,20 @@ export default {
   }),
 
   methods: {
-    searchClick() {},
     itemClick(data) {
       this.selectButton = data;
     },
-    search() {
-      if (this.selectButton.title === "BAIDU") {
+    search(data) {
+      const button =
+        data == null || data === undefined ? this.selectButton : data;
+      if (button.title === "BAIDU") {
         window.open(
           "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd=" +
             this.searchText +
             "&fenlei=256&oq=" +
             this.searchText
         );
-      } else if (this.selectButton.title === "BING") {
+      } else if (button.title === "BING") {
         window.open(
           "https://cn.bing.com/search?q=" +
             this.searchText +
