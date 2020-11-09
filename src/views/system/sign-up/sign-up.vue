@@ -199,7 +199,6 @@ export default {
 @media screen and (max-width: 400px) {
   .login-box {
     width: 100% !important;
-    height: 100% !important;
   }
 }
 
