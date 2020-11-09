@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import SingIn from "@/views/system/sign-in/sign-in.vue";
 import SingUp from "@/views/system/sign-up/sign-up.vue";
 import ForgotPwd from "@/views/system/forgot-page/forgot.pwd.vue";
+import Camera from "@/views/system/camera/camera.vue";
 
 /** home */
 import HomeApp from "@/views/home-app/home-app.vue";
@@ -14,6 +15,11 @@ const routes = [
   {
     path: "/",
     redirect: { name: "login" }
+  },
+  {
+    path: "/camera",
+    name: "camera",
+    component: Camera
   },
   {
     path: "/login",

@@ -1,50 +1,32 @@
 <template>
   <v-app class="sign-up">
     <div class="login-box">
-      <h2>链接控-LCH</h2>
+      <h2>LCH</h2>
       <form class="login-form">
-        <v-text-field
-          dark
-          v-model="name"
-          color="#03e9f4"
-          label="用户名/邮箱"
-        ></v-text-field>
-        <v-text-field
-          dark
-          type="password"
-          v-model="password"
-          color="#03e9f4"
-          label="密码"
-          @keyup.enter.native="submit()"
-        ></v-text-field>
-        <div class="forgot-class" @click="forgotPwd()">忘记密码？</div>
+        <v-text-field v-model="name"
+                      label="用户名"></v-text-field>
+        <v-text-field v-model="password"
+                      :type="showPassword ? 'text' : 'password'"
+                      label="密码"
+                      :error-messages="error_message"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showPassword = !showPassword"
+                      @keyup.enter.native="submit()"></v-text-field>
+
+        <v-btn class="login-button"
+               outlined
+               color="indigo"
+               :disabled="!login_active"
+               @click="submit()"> 登 录 </v-btn>
+
         <v-row>
           <v-col cols="6">
-            <a @click="submit()">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              登 录
-            </a>
+            <a class="forgot-class"
+               @click="forgotPwd()">忘记密码？</a>
           </v-col>
-          <v-col cols="6" style="text-align: center;">
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  dark
-                  icon
-                  large
-                  color="white"
-                  style="margin-top: 30px"
-                  v-on="on"
-                  @click="addUser()"
-                >
-                  <v-icon dark>add</v-icon>
-                </v-btn>
-              </template>
-              <span>加入我们！</span>
-            </v-tooltip>
+          <v-col cols="6"
+                 class="add-class">
+            <a @click="addUser()">加入注册！</a>
           </v-col>
         </v-row>
       </form>
@@ -53,24 +35,38 @@
 </template>
 
 <script>
-import { login } from "../system.service";
-import { mapActions } from "vuex";
+import { login } from '../system.service';
+import { mapActions } from 'vuex';
 
 export default {
-  name: "sign-in",
+  name: 'sign-in',
   data: () => ({
     // 提交表单
-    name: "",
-    password: ""
+    name: '',
+    password: '',
+    login_active: false,
+    error_message: '',
+    showPassword: false
   }),
-  created() {
-    const user = JSON.parse(localStorage.getItem("LCH__UUSER"));
+  watch: {
+    password (newPwd, oldPwd) {
+      this.login_active = this.name.trim() !== '' && newPwd.trim() !== '';
+    },
+
+    name (newName, oldName) {
+      this.login_active = this.password.trim() !== '' && newName.trim() !== '';
+    }
+  },
+  created () {
+    const user = JSON.parse(localStorage.getItem('LCH__UUSER'));
 
     if (user != null) {
       // todo 进行密码检测
       const flag = true;
       if (flag) {
-        this.$router.push({ path: "/" + user.domain });
+        this.$router.push({
+          path: '/' + user.domain
+        });
         this.updateUser({
           domain: user.domain,
           email: user.email
@@ -79,29 +75,32 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateUser"]),
+    ...mapActions(['updateUser']),
     /**
      * 登陆操作
      */
-    submit() {
-      if (this.name.trim() !== "") {
-        if (this.password !== "") {
-          // 封装数据
-          const form = {
-            domain: this.name,
-            email: this.name,
-            password: this.password
-          };
-          // 进行登陆
-          login(form).then(res => {
-            const result = res.data;
-            if (result.code === 0) {
-              localStorage.setItem("LCH__UUSER", JSON.stringify(result.data));
-              this.$router.push({ path: "/" + result.data.domain });
-            } else {
-              this.$snackbar.error(res.data.message);
-            }
-          });
+    submit () {
+      if (this.login_active) {
+        if (this.name.trim() !== '') {
+          if (this.password !== '') {
+            // 封装数据
+            const form = {
+              domain: this.name,
+              password: this.password
+            };
+            // 进行登陆
+            login(form).then((res) => {
+              const result = res.data;
+              if (result.code === 0) {
+                localStorage.setItem('LCH__UUSER', JSON.stringify(result.data));
+                this.$router.push({
+                  path: '/' + result.data.domain
+                });
+              } else {
+                this.error_message = res.data.message;
+              }
+            });
+          }
         }
       }
     },
@@ -109,43 +108,46 @@ export default {
     /**
      * 忘记密码
      */
-    forgotPwd() {
-      this.$router.push({ name: "forgot-pwd" });
+    forgotPwd () {
+      this.$router.push({
+        name: 'forgot-pwd'
+      });
     },
 
     /**
      * 注册
      */
-    addUser() {
-      this.$router.push({ name: "sign-up" });
+    addUser () {
+      this.$router.push({
+        name: 'sign-up'
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-.login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 .forgot-class {
-  color: white;
-  cursor: pointer;
+  color: #bcbcbc;
 }
 
-.forgot-class:hover {
-  text-decoration: underline;
-  color: #03e9f4;
-  text-decoration-color: #03e9f4;
+.forgot-class,
+.add-class {
+  font-size: 0.8em;
+}
+
+.add-class {
+  text-align: right;
+}
+
+.login-button {
+  width: 100%;
+  margin-top: 1em;
 }
 
 @media screen and (max-width: 400px) {
@@ -155,131 +157,14 @@ export default {
   }
 }
 
-.sign-up {
-  font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55) !important;
-}
-
-.login-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
-  color: #fff;
-  text-align: center;
-}
-
-.login-box .user-box {
-  position: relative;
-}
-
-.login-box form a {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  color: #03e9f4;
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  overflow: hidden;
-  transition: 0.5s;
-  margin-top: 30px;
-  letter-spacing: 4px;
-  text-align: center;
-  min-width: 125px;
-}
-
-.login-box a:hover {
-  background: #03e9f4;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-    0 0 100px #03e9f4;
-}
-
-.login-box a span {
-  position: absolute;
-  display: block;
-}
-
-.login-box a span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-.login-box a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: 0.25s;
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-.login-box a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-
-  50%,
-  100% {
-    bottom: 100%;
+@media screen and (min-width: 400px) {
+  .login-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
   }
 }
 </style>

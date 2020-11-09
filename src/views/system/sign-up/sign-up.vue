@@ -33,7 +33,7 @@
           ></v-text-field>
           <div class="send-btn">
             <v-btn dark rounded small :disabled="isSend" @click="sendCode()"
-              >发送验证码{{ isSend ? "(" + secondNumber + ")" : "" }}
+              >发送验证码{{ isSend ? '(' + secondNumber + ')' : '' }}
             </v-btn>
           </div>
         </div>
@@ -48,7 +48,7 @@
           @blur="$v.password.$touch()"
         ></v-text-field>
         <v-row>
-          <v-col cols="6" style="text-align: center;">
+          <v-col cols="6" style="text-align: center">
             <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <v-btn
@@ -86,13 +86,13 @@ import {
   checkEmail,
   checkDomain,
   addUser
-} from "../system.service";
-import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+} from '../system.service';
+import { validationMixin } from 'vuelidate';
+import { required, maxLength, email } from 'vuelidate/lib/validators';
 
 export default {
   mixins: [validationMixin],
-  name: "sign-up",
+  name: 'sign-up',
   validations: {
     name: { required, maxLength: maxLength(10) },
     email: { required, email },
@@ -104,36 +104,36 @@ export default {
     isSend: false,
     secondNumber: 0,
     // 表单数据
-    name: "",
-    email: "",
-    code: "",
-    password: ""
+    name: '',
+    email: '',
+    code: '',
+    password: ''
   }),
   computed: {
     nameErrors() {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength && errors.push("名称最大为10个字符!");
-      !this.$v.name.required && errors.push("必须输入名称!");
+      !this.$v.name.maxLength && errors.push('名称最大为10个字符!');
+      !this.$v.name.required && errors.push('必须输入名称!');
       return errors;
     },
     emailErrors() {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("邮件地址格式不正确!");
-      !this.$v.email.required && errors.push("必须输入邮件地址!");
+      !this.$v.email.email && errors.push('邮件地址格式不正确!');
+      !this.$v.email.required && errors.push('必须输入邮件地址!');
       return errors;
     },
     codeErrors() {
       const errors = [];
       if (!this.$v.code.$dirty) return errors;
-      !this.$v.code.required && errors.push("必须输入验证码");
+      !this.$v.code.required && errors.push('必须输入验证码');
       return errors;
     },
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("必须输入密码!");
+      !this.$v.password.required && errors.push('必须输入密码!');
       return errors;
     }
   },
@@ -144,12 +144,12 @@ export default {
       // 对email 进行基础验证，满足验证时，将会返回空的数组
       if (this.emailErrors.length === 0) {
         // 检测邮箱是否已经存在
-        checkEmail({ email: this.email }).then(res => {
+        checkEmail({ email: this.email }).then((res) => {
           if (res.data.code === -100) {
             this.$snackbar.error(res.data.message);
           } else {
             // 发送验证码
-            sendVerification({ email: this.email }).then(res => {
+            sendVerification({ email: this.email }).then((res) => {
               if (res.data.code === 0) {
                 this.isSend = true;
                 this.secondNumber = 60;
@@ -171,7 +171,7 @@ export default {
     },
     /** 返回登陆 */
     returnLogin() {
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' });
     },
     /** 注册用户信息 */
     submit() {
@@ -182,7 +182,7 @@ export default {
         this.codeErrors.length === 0 &&
         this.passwordErrors.length === 0
       ) {
-        checkDomain({ domain: this.name }).then(res => {
+        checkDomain({ domain: this.name }).then((res) => {
           if (res.data.code === -400) {
             this.$snackbar.error(res.data.message);
           } else {
@@ -191,10 +191,10 @@ export default {
               email: this.email,
               code: this.code,
               password: this.password
-            }).then(res => {
+            }).then((res) => {
               if (res.data.code === 0) {
-                this.$snackbar.success("注册成功，请登录!");
-                this.$router.push({ name: "login" });
+                this.$snackbar.success('注册成功，请登录!');
+                this.$router.push({ name: 'login' });
               }
             });
           }

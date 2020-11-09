@@ -1,11 +1,11 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 /**
  * 进行登陆操作
  * @param {name， email, password} params
  */
 export const login = params => {
-  return Axios.post("/lch/user/login", params);
+  return Axios.post('/lch/user/login', params);
 };
 
 /**
@@ -13,7 +13,7 @@ export const login = params => {
  * @param {domain} params
  */
 export const checkDomain = params => {
-  return Axios.get("/lch/user/checkDomain", { params });
+  return Axios.get('/lch/user/checkDomain', { params });
 };
 
 /**
@@ -21,7 +21,7 @@ export const checkDomain = params => {
  * @param {name, password} params
  */
 export const checkPassword = params => {
-  return Axios.get("/lch/user/checkPassword", { params });
+  return Axios.get('/lch/user/checkPassword', { params });
 };
 
 /**
@@ -29,7 +29,7 @@ export const checkPassword = params => {
  * @param {email} params
  */
 export const sendVerification = params => {
-  return Axios.get("/lch/user/sendVerification", { params });
+  return Axios.get('/lch/user/sendVerification', { params });
 };
 
 /**
@@ -37,7 +37,7 @@ export const sendVerification = params => {
  * @param {email} params
  */
 export const checkEmail = params => {
-  return Axios.get("/lch/user/checkEmail", { params });
+  return Axios.get('/lch/user/checkEmail', { params });
 };
 
 /**
@@ -45,7 +45,7 @@ export const checkEmail = params => {
  * @param {name, email, code, password} params
  */
 export const addUser = params => {
-  return Axios.post("/lch/user/addUser", params);
+  return Axios.post('/lch/user/addUser', params);
 };
 
 /**
@@ -53,5 +53,5 @@ export const addUser = params => {
  * @param {email, code, password} params
  */
 export const forgotPwd = params => {
-  return Axios.post("/lch/user/forgotPwd", params);
+  return Axios.post('/lch/user/forgotPwd', params);
 }
