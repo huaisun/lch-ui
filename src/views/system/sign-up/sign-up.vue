@@ -29,11 +29,13 @@
             </v-btn>
           </div>
         </div>
-        <v-text-field type="password"
+        <v-text-field :type="showPassword ? 'text' : 'password'"
                       v-model="password"
                       :error-messages="passwordErrors"
                       label="密码"
                       @input="$v.password.$touch()"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append="showPassword = !showPassword"
                       @blur="$v.password.$touch()"></v-text-field>
 
         <v-btn class="register-button"
@@ -76,7 +78,8 @@ export default {
     name: '',
     email: '',
     code: '',
-    password: ''
+    password: '',
+    showPassword: false
   }),
   computed: {
     nameErrors () {
