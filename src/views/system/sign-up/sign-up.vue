@@ -49,6 +49,7 @@
         </v-row>
       </form>
     </div>
+    <m-footer></m-footer>
   </v-app>
 </template>
 <script>
@@ -60,10 +61,12 @@ import {
 } from '../system.service';
 import { validationMixin } from 'vuelidate';
 import { required, maxLength, email } from 'vuelidate/lib/validators';
+import Mfooter from '../footer/m.footer'
 
 export default {
   mixins: [validationMixin],
   name: 'sign-up',
+  components: { 'm-footer': Mfooter },
   validations: {
     name: { required, maxLength: maxLength(10) },
     email: { required, email },

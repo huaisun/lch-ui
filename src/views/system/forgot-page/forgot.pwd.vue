@@ -40,13 +40,14 @@
         </v-row>
       </form>
     </div>
+    <m-footer></m-footer>
   </v-app>
 </template>
 <script>
 import { sendVerification, forgotPwd } from '../system.service';
 import { validationMixin } from 'vuelidate';
 import { email, required } from 'vuelidate/lib/validators';
-
+import Mfooter from '../footer/m.footer'
 export default {
   name: 'forgot-pwd',
   mixins: [validationMixin],
@@ -54,6 +55,9 @@ export default {
     email: { required, email },
     code: { required },
     password: { required }
+  },
+  components: {
+    'm-footer': Mfooter
   },
   data: () => ({
     // 验证码的计算

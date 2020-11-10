@@ -31,6 +31,7 @@
         </v-row>
       </form>
     </div>
+    <m-footer></m-footer>
   </v-app>
 </template>
 
@@ -38,8 +39,11 @@
 import { login } from '../system.service';
 import { mapActions } from 'vuex';
 
+import Mfooter from '../footer/m.footer';
+
 export default {
   name: 'sign-in',
+  components: { 'm-footer': Mfooter },
   data: () => ({
     // 提交表单
     name: '',
