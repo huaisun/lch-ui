@@ -1,22 +1,77 @@
 <template>
   <v-app>
-    <v-content>
-      <div class="app-content">
-        <home-search></home-search>
-      </div>
-      <link-main></link-main>
+    <v-app-bar absolute
+               elevate-on-scroll
+               dark>
+      <v-avatar>
+        <img src="https://cdn.vuetifyjs.com/images/john.jpg"
+             :alt="user.domain">
+      </v-avatar>
+
+      <v-toolbar-title style="padding-left: 1em"
+                       v-text="user.domain"></v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-text-field style="max-width: 450px"
+                    hide-details
+                    solo
+                    dense
+                    solo-inverted
+                    color="#9e9e9e"
+                    placeholder="搜索 (按 回车)"
+                    v-model="searchContent"
+                    filled
+                    label="Filled"
+                    clearable>
+        <v-icon slot="prepend-inner"
+                color="#9e9e9e">search</v-icon>
+      </v-text-field>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-content style="padding: 64px 0 0 0">
+      <link-body></link-body>
     </v-content>
+
+    <v-footer>
+      <m-foot></m-foot>
+    </v-footer>
   </v-app>
 </template>
 <script>
-import homeSearchVue from "./search/home-search.vue";
-import linkMainVue from "./link-main/link-main.vue";
+import linkBody from './body/link-body'
+import mFoot from '../system/footer/m.footer'
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  name: "home-app",
+  name: 'home-app',
   components: {
-    "home-search": homeSearchVue,
-    "link-main": linkMainVue
+    'm-foot': mFoot,
+    'link-body': linkBody
+  },
+  data: () => ({
+    user: {
+      domain: '',
+      email: ''
+    },
+    searchContent: ''
+
+  }),
+  created () {
+    const jsonUser = localStorage.getItem('LCH__UUSER');
+    if (jsonUser !== null && jsonUser !== undefined) {
+      const parseUser = JSON.parse(jsonUser);
+      this.user = parseUser;
+      this.updateUser(parseUser);
+    }
+  },
+  methods: {
+    ...mapGetters(['getUser']),
+    ...mapActions(['updateUser'])
   }
 };
 </script>

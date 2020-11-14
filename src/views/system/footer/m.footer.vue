@@ -18,7 +18,6 @@ export default {
 <style scoped>
 .footer {
   width: 100%;
-  position: fixed;
   z-index: 302;
   bottom: 0;
   left: 0;
@@ -26,7 +25,6 @@ export default {
   overflow: hidden;
   zoom: 1;
   margin: 0;
-  background-color: #fbfbfb;
   text-align: left;
   line-height: 40px;
 }

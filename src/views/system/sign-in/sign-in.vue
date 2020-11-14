@@ -1,37 +1,41 @@
 <template>
   <v-app class="sign-up">
-    <div class="login-box">
-      <h2>LCH</h2>
-      <form class="login-form">
-        <v-text-field v-model="name"
-                      label="用户名"></v-text-field>
-        <v-text-field v-model="password"
-                      :type="showPassword ? 'text' : 'password'"
-                      label="密码"
-                      :error-messages="error_message"
-                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      @click:append="showPassword = !showPassword"
-                      @keyup.enter.native="submit()"></v-text-field>
+    <v-content>
+      <div class="login-box">
+        <h2>LCH</h2>
+        <form class="login-form">
+          <v-text-field v-model="name"
+                        label="用户名"></v-text-field>
+          <v-text-field v-model="password"
+                        :type="showPassword ? 'text' : 'password'"
+                        label="密码"
+                        :error-messages="error_message"
+                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="showPassword = !showPassword"
+                        @keyup.enter.native="submit()"></v-text-field>
 
-        <v-btn class="login-button"
-               outlined
-               color="indigo"
-               :disabled="!login_active"
-               @click="submit()"> 登 录 </v-btn>
+          <v-btn class="login-button"
+                 outlined
+                 color="indigo"
+                 :disabled="!login_active"
+                 @click="submit()"> 登 录 </v-btn>
 
-        <v-row>
-          <v-col cols="6">
-            <a class="forgot-class"
-               @click="forgotPwd()">忘记密码？</a>
-          </v-col>
-          <v-col cols="6"
-                 class="add-class">
-            <a @click="addUser()">加入注册！</a>
-          </v-col>
-        </v-row>
-      </form>
-    </div>
-    <m-footer></m-footer>
+          <v-row>
+            <v-col cols="6">
+              <a class="forgot-class"
+                 @click="forgotPwd()">忘记密码？</a>
+            </v-col>
+            <v-col cols="6"
+                   class="add-class">
+              <a @click="addUser()">加入注册！</a>
+            </v-col>
+          </v-row>
+        </form>
+      </div>
+    </v-content>
+    <v-footer>
+      <m-footer></m-footer>
+    </v-footer>
   </v-app>
 </template>
 

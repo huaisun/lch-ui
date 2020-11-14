@@ -1,55 +1,59 @@
 <template>
   <v-app class="sign-up">
-    <div class="login-box">
-      <h2>LCH</h2>
-      <form class="login-form">
-        <v-text-field v-model="name"
-                      :error-messages="nameErrors"
-                      @input="$v.name.$touch()"
-                      @blur="$v.name.$touch()"
-                      label="用户名"></v-text-field>
-        <v-text-field v-model="email"
-                      label="邮箱"
-                      :error-messages="emailErrors"
-                      @input="$v.email.$touch()"
-                      @blur="$v.email.$touch()"></v-text-field>
-        <div class="lch-row">
-          <v-text-field v-model="code"
-                        label="验证码"
-                        :error-messages="codeErrors"
-                        @input="$v.code.$touch()"
-                        @blur="$v.code.$touch()"></v-text-field>
-          <div class="send-btn">
-            <v-btn rounded
-                   outlined
-                   small
-                   color="secondary"
-                   :disabled="isSend"
-                   @click="sendCode()">发送验证码{{ isSend ? '(' + secondNumber + ')' : '' }}
-            </v-btn>
+    <v-content>
+      <div class="login-box">
+        <h2>LCH</h2>
+        <form class="login-form">
+          <v-text-field v-model="name"
+                        :error-messages="nameErrors"
+                        @input="$v.name.$touch()"
+                        @blur="$v.name.$touch()"
+                        label="用户名"></v-text-field>
+          <v-text-field v-model="email"
+                        label="邮箱"
+                        :error-messages="emailErrors"
+                        @input="$v.email.$touch()"
+                        @blur="$v.email.$touch()"></v-text-field>
+          <div class="lch-row">
+            <v-text-field v-model="code"
+                          label="验证码"
+                          :error-messages="codeErrors"
+                          @input="$v.code.$touch()"
+                          @blur="$v.code.$touch()"></v-text-field>
+            <div class="send-btn">
+              <v-btn rounded
+                     outlined
+                     small
+                     color="secondary"
+                     :disabled="isSend"
+                     @click="sendCode()">发送验证码{{ isSend ? '(' + secondNumber + ')' : '' }}
+              </v-btn>
+            </div>
           </div>
-        </div>
-        <v-text-field :type="showPassword ? 'text' : 'password'"
-                      v-model="password"
-                      :error-messages="passwordErrors"
-                      label="密码"
-                      @input="$v.password.$touch()"
-                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      @click:append="showPassword = !showPassword"
-                      @blur="$v.password.$touch()"></v-text-field>
+          <v-text-field :type="showPassword ? 'text' : 'password'"
+                        v-model="password"
+                        :error-messages="passwordErrors"
+                        label="密码"
+                        @input="$v.password.$touch()"
+                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="showPassword = !showPassword"
+                        @blur="$v.password.$touch()"></v-text-field>
 
-        <v-btn class="register-button"
-               dark
-               color="orange"
-               @click="submit()"> 注 册 </v-btn>
-        <v-row>
-          <v-col cols="6">
-            <a @click="returnLogin()">返回登录</a>
-          </v-col>
-        </v-row>
-      </form>
-    </div>
-    <m-footer></m-footer>
+          <v-btn class="register-button"
+                 dark
+                 color="orange"
+                 @click="submit()"> 注 册 </v-btn>
+          <v-row>
+            <v-col cols="6">
+              <a @click="returnLogin()">返回登录</a>
+            </v-col>
+          </v-row>
+        </form>
+      </div>
+    </v-content>
+    <v-footer>
+      <m-footer></m-footer>
+    </v-footer>
   </v-app>
 </template>
 <script>
