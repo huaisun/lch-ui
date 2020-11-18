@@ -9,7 +9,144 @@ export default new Vuex.Store({
       domain: "",
       email: ""
     },
-    colors: ["indigo", "orange", "primary", "green", "teal", "pink", "cyan"]
+    colors: ["indigo", "orange", "primary", "green", "teal", "pink", "cyan"],
+    nav_menu: [{
+        title: "Dashboard",
+        icon: "mdi-view-dashboard"
+      },
+      {
+        title: "Photos",
+        icon: "mdi-image"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      },
+      {
+        title: "About",
+        icon: "mdi-help-box"
+      }
+    ]
   },
   getters: {
     getUser(state) {
@@ -17,6 +154,9 @@ export default new Vuex.Store({
     },
     getColor(state) {
       return state.colors[parseInt(Math.random() * 7)];
+    },
+    getNavMenu(state) {
+      return state.nav_menu;
     }
   },
   mutations: {

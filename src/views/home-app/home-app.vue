@@ -1,34 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar absolute hide-on-scroll dark scroll-target="#scrolling-techniques-1">
-      <v-avatar>
-        <img src="https://cdn.vuetifyjs.com/images/john.jpg" :alt="user.domain">
-      </v-avatar>
-
-      <v-toolbar-title style="padding-left: 1em" v-text="user.domain"></v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-text-field style="max-width: 450px" hide-details solo dense solo-inverted color="#9e9e9e" placeholder="搜索 (按 回车)"
-        v-model="searchContent" filled label="Filled" clearable>
-        <v-icon slot="prepend-inner" color="#9e9e9e">search</v-icon>
-      </v-text-field>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-container style="padding: 64px 0 0 0; height: 100%">
-      <link-body></link-body>
-    </v-container>
+    <m-header :user="user"></m-header>
+    <v-sheet class="m-container">
+      <v-sheet id="scrolling-techniques-1" class="overflow-y-auto" :style="{'maxHeight': maxHeight + 'px'}">
+        <v-container>
+          <m-body></m-body>
+        </v-container>
+      </v-sheet>
+    </v-sheet>
     <v-footer>
-      <m-foot></m-foot>
+      <m-footer></m-footer>
     </v-footer>
   </v-app>
 </template>
 <script>
-  import linkBody from "./body/link-body"
-  import mFoot from "../system/footer/m.footer"
+  import Mheader from "../../components/header/m-header.vue";
+  import Mbody from "../../components/body/m-body.vue"
+  import Mfooter from "../../components/footer/m-footer.vue"
   import {
     mapGetters,
     mapActions
@@ -37,16 +25,16 @@
   export default {
     name: "home-app",
     components: {
-      "m-foot": mFoot,
-      "link-body": linkBody
+      "m-header": Mheader,
+      "m-body": Mbody,
+      "m-footer": Mfooter
     },
     data: () => ({
       user: {
         domain: "",
         email: ""
       },
-      searchContent: ""
-
+      maxHeight: 0
     }),
     created() {
       const jsonUser = localStorage.getItem("LCH__UUSER");
@@ -56,21 +44,29 @@
         this.updateUser(parseUser);
       }
     },
+    mounted() {
+      this.maxHeight = `${document.documentElement.clientHeight}` - 156;
+      const _this = this;
+      window.onresize = () => {
+        _this.maxHeight = document.documentElement.clientHeight - 156;
+      }
+    },
     methods: {
       ...mapGetters(["getUser"]),
       ...mapActions(["updateUser"])
+    },
+    destroyed() {
+      window.onresize = null
     }
   };
 </script>
 
 <style scoped>
-  .app-content {
-    padding: 41px 100px 0 100px;
+  .m-container {
+    padding: 104px 0 0 0;
+    height: 100%
   }
-
-  @media screen and (max-width: 960px) {
-    .app-content {
-      padding: 20px 0 0;
-    }
+  .overflow-y-auto {
+    overflow-y: auto;
   }
 </style>
