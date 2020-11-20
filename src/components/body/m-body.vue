@@ -18,9 +18,12 @@
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
+      <v-sheet>
+        <v-container style="height: 1500px;"></v-container>
+      </v-sheet>
     </v-container>
     <v-dialog v-model="createWarehouseDialog" width="500">
-      <m-warehouse @closeDialog="closeWarehouseDialog"></m-warehouse>
+      <m-warehouse title="创建仓库" @closeDialog="closeWarehouseDialog"></m-warehouse>
     </v-dialog>
   </div>
 </template>

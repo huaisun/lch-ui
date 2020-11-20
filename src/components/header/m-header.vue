@@ -1,9 +1,5 @@
 <template>
-  <v-app-bar absolute dense color="#6A76AB" dark shrink-on-scroll prominent src="https://picsum.photos/1920/1080?random"
-    fade-img-on-scroll scroll-target="#scrolling-techniques-1" scroll-threshold="500">
-    <template v-slot:img="{ props }">
-      <v-img v-bind="props" gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"></v-img>
-    </template>
+  <v-app-bar absolute color="#6A76AB" dark scroll-target="#scrolling-techniques-1" >
     <v-avatar>
       <img src="https://cdn.vuetifyjs.com/images/john.jpg" :alt="user.domain">
     </v-avatar>
@@ -32,21 +28,6 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
-    <template v-slot:extension>
-      <v-spacer></v-spacer>
-      <v-tabs class="m-tab" align-with-title>
-        <v-tab>
-          <v-icon small>mdi-dialpad</v-icon>
-          <span> 仓库 </span>
-        </v-tab>
-        <v-tab>
-          <v-icon small>mdi-thumb-up</v-icon>
-          <span> 收藏 </span>
-        </v-tab>
-      </v-tabs>
-      <v-spacer></v-spacer>
-    </template>
   </v-app-bar>
 </template>
 
