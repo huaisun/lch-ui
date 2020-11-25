@@ -20,12 +20,12 @@
     z-index: 302;
     bottom: 0;
     left: 0;
-    height: 40px;
+    height: 18px;
     overflow: hidden;
     zoom: 1;
     margin: 0;
     text-align: left;
-    line-height: 40px;
+    line-height: 18px;
   }
 
   .bottom-layer {

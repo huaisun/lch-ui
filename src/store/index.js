@@ -21,132 +21,66 @@ export default new Vuex.Store({
       {
         title: "About",
         icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
-      },
-      {
-        title: "About",
-        icon: "mdi-help-box"
       }
-    ]
+    ],
+    nav_links: [{
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }, {
+      title: "百度一下，你就知道",
+      link: "https://www.baidu.com/?tn=62095104_26_oem_dg"
+    }]
   },
   getters: {
     getUser(state) {
@@ -157,6 +91,9 @@ export default new Vuex.Store({
     },
     getNavMenu(state) {
       return state.nav_menu;
+    },
+    getNavLinks(state) {
+      return state.nav_links;
     }
   },
   mutations: {

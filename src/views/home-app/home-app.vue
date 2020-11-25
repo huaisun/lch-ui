@@ -1,12 +1,8 @@
 <template>
   <v-app>
     <m-header :user="user"></m-header>
-    <v-sheet class="m-container">
-      <v-sheet id="scrolling-techniques-1" class="overflow-y-auto" :style="{'maxHeight': maxHeight + 'px'}">
-        <v-container>
-          <m-body></m-body>
-        </v-container>
-      </v-sheet>
+    <v-sheet class="grey lighten-3 m-container">
+      <m-body></m-body>
     </v-sheet>
     <v-footer>
       <m-footer></m-footer>
@@ -63,9 +59,10 @@
 
 <style scoped>
   .m-container {
-    padding: 104px 0 0 0;
+    padding: 64px 0 0 0;
     height: 100%
   }
+
   .overflow-y-auto {
     overflow-y: auto;
   }
